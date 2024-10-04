@@ -175,7 +175,7 @@ Main input file ``Nemoh.cal``
    1025\.                                              Fluid density :math:`\rho` :math:`[kg/m^3]`
    9.81                                                Gravitional acceleration :math:`g` :math:`[m/s^2]`
    200\.                                               Water depth :math:`d` :math:`[m]` (``0.`` for infinite depth)
-   0\.             0\.                                 Wave measurement location :math:`(x_{eff},y_{eff})` :math:`[m]`
+   0\.             0\.                                 Wave measurement location :math:`\mathbf{x}_{eff} = (x_{eff},y_{eff})` :math:`[m]` so that :math:`\Phi_I(\mathbf{x}, \omega)= - i \frac{g}{\omega} f_0(z) \mathrm{e}^{i \mathbf{k} \cdot (\mathbf{x} - \mathbf{x}_{eff})}`
    \--- Description of floating bodies --------------- *Section header*
    --------------------------------------------------- ------------------------------------------------------------------
    1                                                   Number of bodies
