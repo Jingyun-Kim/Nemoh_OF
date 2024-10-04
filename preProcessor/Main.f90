@@ -43,7 +43,6 @@
     TYPE(TNemCal)      :: inpNEMOHCAL
 !   Wave frequencies
     INTEGER :: Nw
-    REAL :: wmin,wmax
     REAL,DIMENSION(:),ALLOCATABLE :: w
 !   Radiation cases
     INTEGER :: Nradiation
@@ -51,7 +50,6 @@
     COMPLEX,DIMENSION(:,:),ALLOCATABLE :: NormalVelocity
 !   Diffraction cases
     INTEGER :: Nbeta
-    REAL :: betamin,betamax
     REAL,DIMENSION(:),ALLOCATABLE :: beta
     COMPLEX,DIMENSION(:),ALLOCATABLE :: Pressure
 !   Force integration cases
@@ -88,11 +86,7 @@
     Nradiation  =InpNEMOHCAL%Nradtot
     Nintegration=InpNEMOHCAL%Nintegtot
     Nw          =InpNEMOHCAL%waveinput%NFreq
-    wmin        =InpNEMOHCAL%waveinput%Freq1
-    wmax        =InpNEMOHCAL%waveinput%Freq2
     Nbeta          =InpNEMOHCAL%waveinput%NBeta
-    betamin        =InpNEMOHCAL%waveinput%Beta1
-    betamax        =InpNEMOHCAL%waveinput%Beta2
     CALL Discretized_Omega_and_Beta(0, InpNEMOHCAL%waveinput, w, beta)
     Switch_Potential  =InpNEMOHCAL%OptOUTPUT%Switch_POTENTIAL
     Switch_Kochin     =InpNEMOHCAL%OptOUTPUT%Kochin%Switch
