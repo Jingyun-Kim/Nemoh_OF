@@ -255,6 +255,11 @@
             Nw = waveinp%NFreq
             Nbeta = waveinp%NBeta
 
+            IF (wmin < 2*TINY(wmin)) THEN
+                WRITE(*,*) "ERROR: Lower frequency bound must be strictly positive."
+                ERROR STOP
+            ENDIF
+
             ALLOCATE(w(Nw), beta(Nbeta))
 
             IF (Nw.GT.1) THEN
