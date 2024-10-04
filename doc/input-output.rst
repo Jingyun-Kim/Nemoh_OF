@@ -175,7 +175,7 @@ Main input file ``Nemoh.cal``
    1025\.                                              Fluid density :math:`\rho` :math:`[kg/m^3]`
    9.81                                                Gravitional acceleration :math:`g` :math:`[m/s^2]`
    200\.                                               Water depth :math:`d` :math:`[m]` (``0.`` for infinite depth)
-   0\.             0\.                                 Wave measurement location :math:`(x_{eff},y_{eff})` :math:`[m]`
+   0\.             0\.                                 Wave measurement location :math:`\mathbf{x}_{eff} = (x_{eff},y_{eff})` :math:`[m]` so that :math:`\Phi_I(\mathbf{x}, \omega)= - i \frac{g}{\omega} f_0(z) \mathrm{e}^{i \mathbf{k} \cdot (\mathbf{x} - \mathbf{x}_{eff})}`
    \--- Description of floating bodies --------------- *Section header*
    --------------------------------------------------- ------------------------------------------------------------------
    1                                                   Number of bodies
@@ -203,7 +203,7 @@ Main input file ``Nemoh.cal``
    ...                                                 *This section (header included) is repeated for each body*
    \--- Load cases ----------------------------------- *Section header*
    --------------------------------------------------- ------------------------------------------------------------------
-   1               100   0.062 6.28                    Wave frequency range: unit (1 for *rad/s*, 2 for *Hz* and 3 for *s*), :math:`N_{\omega}`, :math:`\omega_{min}` and :math:`\omega_{max}`
+   1               100   0.062 6.28                    Wave frequency range: unit (1 for *rad/s*, 2 for *Hz* and 3 for *s*), :math:`N_{\omega}`, :math:`\omega_{min}>0` and :math:`\omega_{max}`
    2               0     30                            Wave direction range: :math:`N_{\beta}`, :math:`\beta_{min}` and :math:`\beta_{max}` (in :math:`[deg]`)
    \--- Post processing ------------------------------ *Section header*
    --------------------------------------------------- ------------------------------------------------------------------
@@ -216,7 +216,7 @@ Main input file ``Nemoh.cal``
    \-- QTF ------------------------------------------- *Section header*
    --------------------------------------------------- ------------------------------------------------------------------
    1                                                   QTF (Quadratic Transfer Function) flag (0/1)
-   65              0.062 3.14                          :math:`{N_{\omega}}_{QTF}`, :math:`{\omega_{min}}_{QTF}` and :math:`{\omega_{max}}_{QTF}` (in :math:`[rad/s]`)
+   65              0.062 3.14                          :math:`{N_{\omega}}_{QTF}`, :math:`{\omega_{min}}_{QTF}>0` and :math:`{\omega_{max}}_{QTF}` (in :math:`[rad/s]`)
    1                                                   Bidirectional QTF computation flag (0/1)
    2                                                   Contributing terms: 1 ``DUOK``, 2 ``DUOK+HASBO``, 3 Full QTF (``DUOK+HASBO+HASFS+ASYMP``)
    NA                                                  Name of free surface meshfile (**only for full QTF**), 'NA' if not applicable
@@ -231,6 +231,10 @@ Main input file ``Nemoh.cal``
 .. warning::
    It is strongly recommended to use the same point for all rotations and moments when computing the RAO (and QTF).
    The inertia, added damping and added stiffness matrices must also be provided at the same reference point.
+
+.. warning::
+   The mathematical problem is not defined for :math:`\omega=0`, hence the lower frequency boundary :math:`\omega_{min}` **must be strictly positive**.
+   The same goes for :math:`{\omega_{min}}_{QTF}`.
 
 .. note::
    When the frequencies needed for the QTF were not computed by the 1st order solver (Nemoh1), the values are interpolated.

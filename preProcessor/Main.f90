@@ -30,7 +30,7 @@
     USE Elementary_functions
     USE MEnvironment
     USE MIdentification
-    USE MNemohCal,              ONLY:TNemCal,READ_TNEMOHCAL,IdFreqHz,IdPeriod
+    USE MNemohCal,              ONLY:TNemCal,READ_TNEMOHCAL,IdFreqHz,IdPeriod,Discretized_Omega_and_Beta
     USE MMesh
     USE BodyConditions
     USE Integration
@@ -43,7 +43,6 @@
     TYPE(TNemCal)      :: inpNEMOHCAL
 !   Wave frequencies
     INTEGER :: Nw
-    REAL :: wmin,wmax
     REAL,DIMENSION(:),ALLOCATABLE :: w
 !   Radiation cases
     INTEGER :: Nradiation
@@ -51,7 +50,6 @@
     COMPLEX,DIMENSION(:,:),ALLOCATABLE :: NormalVelocity
 !   Diffraction cases
     INTEGER :: Nbeta
-    REAL :: betamin,betamax
     REAL,DIMENSION(:),ALLOCATABLE :: beta
     COMPLEX,DIMENSION(:),ALLOCATABLE :: Pressure
 !   Force integration cases
@@ -88,30 +86,8 @@
     Nradiation  =InpNEMOHCAL%Nradtot
     Nintegration=InpNEMOHCAL%Nintegtot
     Nw          =InpNEMOHCAL%waveinput%NFreq
-    wmin        =InpNEMOHCAL%waveinput%Freq1
-    wmax        =InpNEMOHCAL%waveinput%Freq2
-    ALLOCATE(w(Nw))
-    IF (Nw.GT.1) THEN
-        DO j=1,Nw
-            w(j)=wmin+(wmax-wmin)*(j-1)/(Nw-1)
-        END DO
-    ELSE
-        w(1)=wmin
-    END IF
-    IF (InpNEMOHCAL%waveinput%FreqType==IdFreqHz) w(:)=2*PI*w(:)
-    IF (InpNEMOHCAL%waveinput%FreqType==IdPeriod) w(:)=2*PI/w(:)
-
     Nbeta          =InpNEMOHCAL%waveinput%NBeta
-    betamin        =InpNEMOHCAL%waveinput%Beta1
-    betamax        =InpNEMOHCAL%waveinput%Beta2
-    ALLOCATE(beta(Nbeta))
-    IF (Nbeta.GT.1) THEN
-        DO j=1,Nbeta
-            beta(j)=(betamin+(betamax-betamin)*(j-1)/(Nbeta-1))*PI/180.
-        END DO
-    ELSE
-        beta(1)=betamin*PI/180.
-    END IF
+    CALL Discretized_Omega_and_Beta(0, InpNEMOHCAL%waveinput, w, beta)
     Switch_Potential  =InpNEMOHCAL%OptOUTPUT%Switch_POTENTIAL
     Switch_Kochin     =InpNEMOHCAL%OptOUTPUT%Kochin%Switch
     Ntheta            =InpNEMOHCAL%OptOUTPUT%Kochin%Ntheta

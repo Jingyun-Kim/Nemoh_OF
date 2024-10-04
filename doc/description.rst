@@ -102,7 +102,7 @@ Nemoh1, the first-order solver, is based on the following modelling principles:
       :label: Eq:PhiHarm
 
       \begin{aligned}
-      \Phi(\mathbf{x},t)=\Re\left\lbrace a \Phi^{(1)}(\mathbf{x}, \omega)\mathrm{e}^{-i\omega t}\right\rbrace.
+      \widetilde{\Phi}(\mathbf{x},t)=\Re\left\lbrace a \Phi^{(1)}(\mathbf{x}, \omega)\mathrm{e}^{-i\omega t}\right\rbrace.
       \end{aligned}
 
    The total potential, :math:`\Phi`, is the sum of the incident potential, the diffraction potential and the radiation potential.
@@ -112,10 +112,9 @@ Nemoh1, the first-order solver, is based on the following modelling principles:
    .. math::
       :label: eq:eta_I
 
-      \eta_I(\mathbf{x}, \omega) = \mathrm{e}^{\mathbf{k}\cdot\mathbf{x}}
+      \eta_I(\mathbf{x}, \omega) = \mathrm{e}^{i \mathbf{k}\cdot\mathbf{x}}
 
-   where :math:`a` is the wave amplitude and :math:`\beta` is the wave direction.
-   :math:`\mathbf{k}=k(\cos(\beta),\sin(\beta),0)` is the wave number vector, related to the radial frequency :math:`\omega` by the dispersion relation:
+   where :math:`\mathbf{k}=k(\cos(\beta),\sin(\beta),0)` is the wave number vector (and :math:`\beta` is the wave direction). The wave number :math:`k` is related to the radial frequency :math:`\omega` through the dispersion relation:
 
    .. math::
       :label: eq:dispersion
@@ -141,38 +140,38 @@ Nemoh1, the first-order solver, is based on the following modelling principles:
    .. math::
       :label: eq:pressure
 
-      p_I(\mathbf{x}, \omega) = \rho g f_0(z) \mathrm{e}^{\mathbf{k}\cdot\mathbf{x}}
+      p_I(\mathbf{x}, \omega) = \rho g f_0(z) \mathrm{e}^{i \mathbf{k}\cdot\mathbf{x}}
 
--  The radiation potential is defined as :math:`\Phi_R(\boldsymbol x,t)=Re\left\lbrace \dot{\boldsymbol\xi}^{(1)}(t) \cdot \boldsymbol\psi(x)\right\rbrace` where :math:`\boldsymbol\psi(\boldsymbol x)` is the normalized vector radiation potential.
+-  The radiation potential is defined as :math:`\Phi_R(\mathbf{x},t)=Re\left\lbrace \dot{\boldsymbol\xi}^{(1)}(t) \cdot \boldsymbol\psi(x)\right\rbrace` where :math:`\boldsymbol\psi(\mathbf{x})` is the normalized vector radiation potential.
 
--  The three-dimensional linear potential flow problem around arbitrary body condition is reformulated in the Boundary Integral Equation (BIE) and transformed into the two-dimensional problem of the source distribution, :math:`\sigma`, on the body surface, :math:`S_B`, using Green’s second identity and the appropriate Green function, :math:`G(\boldsymbol x,\boldsymbol x')`.
+-  The three-dimensional linear potential flow problem around arbitrary body condition is reformulated in the Boundary Integral Equation (BIE) and transformed into the two-dimensional problem of the source distribution, :math:`\sigma`, on the body surface, :math:`S_B`, using Green’s second identity and the appropriate Green function, :math:`G(\mathbf{x},\mathbf{x}')`.
 
 -  The Green function is based on Delhommeau’s formulation and is available for finite and infinite water-depth, see :cite:t:`Delhommeau`.
 
--  The source distribution depends on the considered boundary condition problem. For each frequency and wave direction, the diffraction source distribution, :math:`\sigma_D(\boldsymbol x)`, depends on the position of the panels while the radiation source distribution, :math:`\sigma_{R_j}(\boldsymbol x)`, depends on the position of the panels and the considered degree of freedom :math:`j`.
+-  The source distribution depends on the considered boundary condition problem. For each frequency and wave direction, the diffraction source distribution, :math:`\sigma_D(\mathbf{x})`, depends on the position of the panels while the radiation source distribution, :math:`\sigma_{R_j}(\mathbf{x})`, depends on the position of the panels and the considered degree of freedom :math:`j`.
 
--  Then, the BIE for :math:`\boldsymbol x \in S_B`, is expressed as, with flow points :math:`\boldsymbol x` and source points :math:`\boldsymbol x'`,
+-  Then, the BIE for :math:`\mathbf{x} \in S_B`, is expressed as, with flow points :math:`\mathbf{x}` and source points :math:`\mathbf{x}'`,
 
    .. math::
       :label: Eq:BIE_source_distribution
 
       \begin{aligned}
-      \frac{1}{2}\sigma_{D,R_j}(\boldsymbol x)-\frac{1}{4\pi}\int_{S_B} \partial_n G(\boldsymbol x, \boldsymbol x') \sigma_{D,R_j}(\boldsymbol x') dS'=\mathcal{N}_{D,R_j}(\boldsymbol x).
+      \frac{1}{2}\sigma_{D,R_j}(\mathbf{x})-\frac{1}{4\pi}\int_{S_B} \partial_n G(\mathbf{x}, \mathbf{x}') \sigma_{D,R_j}(\mathbf{x}') dS'=\mathcal{N}_{D,R_j}(\mathbf{x}).
       \end{aligned}
 
-   where :math:`\mathcal{N}(\boldsymbol x)` is the body normal condition. The diffraction normal condition is defined as :math:`\mathcal{N}_D (\boldsymbol x)=-\partial_{n} \Phi_I^{(1)}(\boldsymbol x)`, the normalized radiation condition, :math:`\mathcal{N}_R (\boldsymbol x)=\partial_{n} \Phi_{R_j}(\boldsymbol x)`, with :math:`\Phi_{R_j}(\boldsymbol x)` is the vector component-:math:`j` of the normalized radiation potential :math:`\boldsymbol\psi(\boldsymbol x)`, explicitly :math:`\boldsymbol\psi=(\Phi_{R_1},\Phi_{R_2},\cdots,\Phi_{R_{N_{DoF}}})`.
+   where :math:`\mathcal{N}(\mathbf{x})` is the body normal condition. The diffraction normal condition is defined as :math:`\mathcal{N}_D (\mathbf{x})=-\partial_{n} \Phi_I^{(1)}(\mathbf{x})`, the normalized radiation condition, :math:`\mathcal{N}_R (\mathbf{x})=\partial_{n} \Phi_{R_j}(\mathbf{x})`, with :math:`\Phi_{R_j}(\mathbf{x})` is the vector component-:math:`j` of the normalized radiation potential :math:`\boldsymbol\psi(\mathbf{x})`, explicitly :math:`\boldsymbol\psi=(\Phi_{R_1},\Phi_{R_2},\cdots,\Phi_{R_{N_{DoF}}})`.
 
--  The diffraction potential, :math:`\Phi^{(1)}_{D}`, the normalized radiation potential vector component-:math:`j`, :math:`\Phi_{R_j}` and the corresponding velocities are then computed as follows, for the flow points in the fluid domain :math:`\boldsymbol x \in S_B \cup V_{\Omega_F}`,
+-  The diffraction potential, :math:`\Phi^{(1)}_{D}`, the normalized radiation potential vector component-:math:`j`, :math:`\Phi_{R_j}` and the corresponding velocities are then computed as follows, for the flow points in the fluid domain :math:`\mathbf{x} \in S_B \cup V_{\Omega_F}`,
 
    .. math::
       :label: Eq:BIE_Sol_Pot_Sb
 
       \begin{aligned}
-      \Phi^{(1)}_{D,R_j}(\boldsymbol x)=&-\frac{1}{4\pi}\int_{S_B} G(\boldsymbol x, \boldsymbol x') \sigma_{D,R_j}(\boldsymbol x') dS'\\
-      \partial_{\boldsymbol x} \Phi^{(1)}_{D,R_j}(\boldsymbol x)=&\frac{1}{2}\sigma_{D,R_j}(\boldsymbol x)\boldsymbol{n}\delta_{\boldsymbol x \boldsymbol x'}-\frac{1}{4\pi}\int_{S_B} \partial_{\boldsymbol{x}} G(\boldsymbol x, \boldsymbol x') \sigma_{D,R_j}(\boldsymbol x') dS'
+      \Phi^{(1)}_{D,R_j}(\mathbf{x})=&-\frac{1}{4\pi}\int_{S_B} G(\mathbf{x}, \mathbf{x}') \sigma_{D,R_j}(\mathbf{x}') dS'\\
+      \partial_{\mathbf{x}} \Phi^{(1)}_{D,R_j}(\mathbf{x})=&\frac{1}{2}\sigma_{D,R_j}(\mathbf{x})\boldsymbol{n}\delta_{\mathbf{x} \mathbf{x}'}-\frac{1}{4\pi}\int_{S_B} \partial_{\boldsymbol{x}} G(\mathbf{x}, \mathbf{x}') \sigma_{D,R_j}(\mathbf{x}') dS'
       \end{aligned}
 
-   where the Kronecker delta :math:`\delta_{\boldsymbol x \boldsymbol x'}=1` for :math:`\boldsymbol x = \boldsymbol x'`, and :math:`\delta_{\boldsymbol x \boldsymbol x'}=0` otherwise.
+   where the Kronecker delta :math:`\delta_{\mathbf{x} \mathbf{x}'}=1` for :math:`\mathbf{x} = \mathbf{x}'`, and :math:`\delta_{\mathbf{x} \mathbf{x}'}=0` otherwise.
 
 -  The hydrodynamic coefficients are then computed as follows, the excitation force is defined as
 
@@ -236,7 +235,7 @@ Nemoh1 uses the following numerical approach:
 
 -  The specified points for the interpolation of the Green function are finer than in the previous release. However, an option to switch the two different tabulated Green function data is available in the source file ``/Solver/Core/INITIALIZE_GREEN.f90`` with the parameter FLAG_IGREEN=1 or 2, 2 being the default.
 
--  Influence coefficients, the integration of :math:`\partial_n G(\boldsymbol x, \boldsymbol x')` over a body panel, is computed using Gauss-quadrature integration with a user-input number of Gauss-quadrature points.
+-  Influence coefficients, the integration of :math:`\partial_n G(\mathbf{x}, \mathbf{x}')` over a body panel, is computed using Gauss-quadrature integration with a user-input number of Gauss-quadrature points.
 
 -  The source distributions on body panels are then obtained after solving the corresponding linear system.
 
