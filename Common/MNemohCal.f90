@@ -239,20 +239,23 @@
 
          END FUNCTION
 
-         SUBROUTINE Discretized_Omega_and_Beta(IDQTF,waveinp,Nw,Nbeta, &
-                                                w,beta)
+         SUBROUTINE Discretized_Omega_and_Beta(IDQTF, waveinp, w, beta)
            !input/output
-           TYPE(Twaveinput),         INTENT(IN) :: waveinp
-           INTEGER,                  INTENT(IN) :: IDQTF,Nw,Nbeta
-           REAl,DIMENSION(Nw),       INTENT(OUT):: w
-           REAl,DIMENSION(Nbeta),    INTENT(OUT):: beta
+           TYPE(Twaveinput),                INTENT(IN) :: waveinp
+           INTEGER,                         INTENT(IN) :: IDQTF
+           REAl, ALLOCATABLE, DIMENSION(:), INTENT(OUT):: w
+           REAl, ALLOCATABLE, DIMENSION(:), INTENT(OUT):: beta
            !local variables
-           INTEGER                              ::j
+           INTEGER                              ::j, Nw, Nbeta
            REAL                                 ::wmin,wmax,dw,dwtemp
            REAL                                 ::betamin,betamax
 
-            wmin        =waveinp%Freq1
-            wmax        =waveinp%Freq2
+            wmin        = waveinp%Freq1
+            wmax        = waveinp%Freq2
+            Nw = waveinp%NFreq
+            Nbeta = waveinp%NBeta
+
+            ALLOCATE(w(Nw), beta(Nbeta))
 
             IF (Nw.GT.1) THEN
                 dw=(wmax-wmin)/(Nw-1)
