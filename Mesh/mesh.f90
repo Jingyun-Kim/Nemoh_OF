@@ -96,6 +96,22 @@ PROGRAM Mesh
   OPEN(10,file=TRIM(ID%ID)//'/'//DSCRPT%ID(1:DSCRPT%lID))
   READ(10,*) Np
   READ(10,*) nFace
+  ! Check the input size
+  IF (Nmailmx > NFMX) THEN
+      PRINT*, 'Error in Mesh.cal parameters'
+      PRINT*, 'Target number of panels should be smaller than', NFMX
+      STOP
+  ENDIF
+  IF (Np > NPMX) THEN
+      PRINT*, 'Error while reading file', DSCRPT%ID(1:DSCRPT%lID)
+      PRINT*, 'Number of nodes should be smaller than ', NPMX
+      STOP
+  ENDIF
+  IF (nFace > nFacemx) THEN
+      PRINT*, 'Error while reading file', DSCRPT%ID(1:DSCRPT%lID)
+      PRINT*, 'Number of panels should be smaller than ', nFacemx
+      STOP
+  ENDIF
   DO i=1,Np
       READ(10,*) X(i),Y(i),Z(i)
   END DO

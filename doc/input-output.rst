@@ -331,6 +331,10 @@ All the parameters are used in ``mesh``. Only center of gravity, water density, 
    9.81                    Gravity acceleration :math:`(m/s^2)`
    =============== === === ==================================================================
 
+.. warning::
+
+   Target number of panels in refined mesh should be smaller than 20,000
+
 Geometry file
 =============
 
@@ -356,6 +360,9 @@ This format can also be converted from other popular mesh formats using `meshmag
    ...           ...           ...           ...
    ============= ============= ============= ==== ==================================================================
 
+.. warning::
+
+   Total number of panels should be smaller than 3,000
 
 Numerical parameters input file ``input_solver.txt``
 ====================================================
