@@ -86,7 +86,8 @@ IMPLICIT NONE
         ALLOCATE(Motion(Nw,Nradiation,Nbeta))
         CALL Read_Motion(TRIM(ID%ID),Nw,Nbeta,Nradiation,Motion)!RAO
 !
-        CALL Discretized_Omega_and_Beta(1, InpNEMOHCAL%waveinput, w, beta)
+        ALLOCATE(w(Nw),beta(Nbeta))
+        CALL Discretized_Omega_and_Beta(1,InpNEMOHCAL%waveinput,Nw,Nbeta,w,beta)
 !
         NP_GQ=Read_NP_GaussQuad(TRIM(ID%ID))
         EPS_ZMIN=Read_Eps_Zmin(TRIM(ID%ID))

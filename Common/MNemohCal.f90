@@ -239,28 +239,20 @@
 
          END FUNCTION
 
-         SUBROUTINE Discretized_Omega_and_Beta(IDQTF, waveinp, w, beta)
+         SUBROUTINE Discretized_Omega_and_Beta(IDQTF,waveinp,Nw,Nbeta, &
+                                                w,beta)
            !input/output
-           TYPE(Twaveinput),                INTENT(IN) :: waveinp
-           INTEGER,                         INTENT(IN) :: IDQTF
-           REAl, ALLOCATABLE, DIMENSION(:), INTENT(OUT):: w
-           REAl, ALLOCATABLE, DIMENSION(:), INTENT(OUT):: beta
+           TYPE(Twaveinput),         INTENT(IN) :: waveinp
+           INTEGER,                  INTENT(IN) :: IDQTF,Nw,Nbeta
+           REAl,DIMENSION(Nw),       INTENT(OUT):: w
+           REAl,DIMENSION(Nbeta),    INTENT(OUT):: beta
            !local variables
-           INTEGER                              ::j, Nw, Nbeta
+           INTEGER                              ::j
            REAL                                 ::wmin,wmax,dw,dwtemp
            REAL                                 ::betamin,betamax
 
-            wmin        = waveinp%Freq1
-            wmax        = waveinp%Freq2
-            Nw = waveinp%NFreq
-            Nbeta = waveinp%NBeta
-
-            IF (wmin < 2*TINY(wmin)) THEN
-                WRITE(*,*) "ERROR: Lower frequency bound must be strictly positive."
-                ERROR STOP
-            ENDIF
-
-            ALLOCATE(w(Nw), beta(Nbeta))
+            wmin        =waveinp%Freq1
+            wmax        =waveinp%Freq2
 
             IF (Nw.GT.1) THEN
                 dw=(wmax-wmin)/(Nw-1)

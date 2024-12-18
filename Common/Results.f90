@@ -209,7 +209,7 @@
             WRITE(10,'(A,I4,I4,A,I4,I4,A)') '"abs(F',Results%IndxForce(k,2),Results%IndxForce(k,3),')" "angle(F',Results%IndxForce(k,2),Results%IndxForce(k,3),')"'
         END DO
         DO j=1,Results%Nbeta
-            WRITE(10,'(A,F7.3,A,I6,A)') 'Zone t="Diffraction force - beta = ',Results%beta(j)*180./(4.*ATAN(1.0)),' deg",I=',Results%Nw,',F=POINT'
+            WRITE(10,'(A,F7.2,A,I6,A)') 'Zone t="Diffraction force - beta = ',Results%beta(j)*180./(4.*ATAN(1.0)),' deg",I=',Results%Nw,',F=POINT'
             DO i=1,Results%Nw
                 WRITE(10,'(80(X,E14.7))') freqVar(i),(ABS(Results%DiffractionForce(i,j,k)),ATAN2(IMAG(Results%DiffractionForce(i,j,k)),REAL(Results%DiffractionForce(i,j,k))),k=1,Results%Nintegration)
             END DO
@@ -221,7 +221,7 @@
             WRITE(10,'(A,I4,I4,A,I4,I4,A)') '"abs(F',Results%IndxForce(k,2),Results%IndxForce(k,3),')" "angle(F',Results%IndxForce(k,2),Results%IndxForce(k,3),')"'
         END DO
         DO j=1,Results%Nbeta
-            WRITE(10,'(A,F7.3,A,I6,A)') 'Zone t="Excitation force - beta = ',Results%beta(j)*180./(4.*ATAN(1.0)),' deg",I=',Results%Nw,',F=POINT'
+            WRITE(10,'(A,F7.2,A,I6,A)') 'Zone t="Excitation force - beta = ',Results%beta(j)*180./(4.*ATAN(1.0)),' deg",I=',Results%Nw,',F=POINT'
             DO i=1,Results%Nw
 !       Adrien Combourieu: in ExcitationForce.tec, the phase is given in radians.
                 WRITE(10,'(80(X,E14.7))') freqVar(i),(ABS(Results%DiffractionForce(i,j,k)+Results%FroudeKrylovForce(i,j,k)),ATAN2(IMAG(Results%DiffractionForce(i,j,k)+Results%FroudeKrylovForce(i,j,k)),REAL(Results%DiffractionForce(i,j,k)+Results%FroudeKrylovForce(i,j,k))),k=1,Results%Nintegration)
@@ -252,7 +252,7 @@
         WRITE(10,'(A)') 'VARIABLES="Frequency (rad/s)" "|Fx| (N/m)" "|Fy| (N/m)" "|Fz| (N/m)" "|Cx| (N)" "|Cy| (N)" "|Cz| (N)" "ang(Fx) (°)" "ang(Fy) (°)" "ang(Fz) (°)" "ang(Cx) (°)" "ang(Cy) (°)" "ang(Cz) (°)"'
         WRITE(10,'(A,I2,A)') 'Zone t="Corps ',1,'"'
         DO j=1,Results%Nbeta
-            WRITE(10,'(A,F7.3,A,I6,A)') 'Zone t="Excitation force - beta = ',Results%beta(j)*180./PI,' deg",I=',Results%Nw,',F=POINT'
+            WRITE(10,'(A,F7.2,A,I6,A)') 'Zone t="Excitation force - beta = ',Results%beta(j)*180./PI,' deg",I=',Results%Nw,',F=POINT'
             DO l=1,Results%Nw
 !           Be careful of the phase referential when comparing with Aquaplus
 !           In Nemoh, PHI = -g/w * CIH CEXP(k.x), so ETA= i w/g * PHI = -i CEXP(k.x)

@@ -507,10 +507,10 @@ CONTAINS
         WRITE(LogTextToBeWritten,'(A,I4,A,3(F7.3,A))') ' NFreq= ', Nw, ', omega = (', w(1),':',w(2)-w(1),':',w(Nw),') rad/s'
         CALL WRITE_LOGFILE(TRIM(wd)//'/'//LogFILE,TRIM(LogTextToBeWritten),IdAppend,IdprintTerm)
         IF (Nbeta>1) THEN
-        WRITE(LogTextToBeWritten,'(A,I4,A,3(F7.3,A))') ' Nbeta= ', Nbeta, ', beta  = (',beta(1)*180/PI, &
+        WRITE(LogTextToBeWritten,'(A,I4,A,3(F7.2,A))') ' Nbeta= ', Nbeta, ', beta  = (',beta(1)*180/PI, &
                 ':',(beta(2)-beta(1))*180/PI,':',beta(Nbeta)*180/PI,') deg'
         ELSE
-         WRITE(LogTextToBeWritten,'(A,I4,A,F7.3,A)') ' Nbeta= ', Nbeta, ', beta  = ',beta(1)*180/PI,' deg'
+         WRITE(LogTextToBeWritten,'(A,I4,A,F7.2,A)') ' Nbeta= ', Nbeta, ', beta  = ',beta(1)*180/PI,' deg'
         ENDIF
         CALL WRITE_LOGFILE(TRIM(wd)//'/'//LogFILE,TRIM(LogTextToBeWritten),IdAppend,IdprintTerm)
         WRITE(LogTextToBeWritten,'(A,I3,A)') ' NBodies=', Nbodies, ', NDOF=6'
